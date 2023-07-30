@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  game_db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: game_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: always        
+  game_service:
+    ports: 
+      - "5080:80"
+    environment:
+     - ConnectionStrings:PostgreGlobal=Server=game_db;Port=5432;Database=game_db;User ID=postgres;Password=postgres
+    build:
+      context: /src
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - game_db
