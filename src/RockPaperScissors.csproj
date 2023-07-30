@@ -7,4 +7,12 @@
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentMigrator" Version="3.3.2" />
+      <PackageReference Include="FluentMigrator.Extensions.Postgres" Version="3.3.2" />
+      <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
+      <PackageReference Include="FluentMigrator.Runner.Postgres" Version="3.3.2" />
+      <PackageReference Include="Npgsql" Version="8.0.0-preview.4" />
+    </ItemGroup>
+
 </Project>

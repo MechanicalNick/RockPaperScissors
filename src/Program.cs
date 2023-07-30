@@ -1,3 +1,5 @@
+using RockPaperScissors.Configuration;
+using RockPaperScissors.Infrastructure;
 using static RockPaperScissors.ConfigureServicesExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,4 +12,4 @@ app.MapControllers();
 
 app.MapGet("/", () => "Rock Paper Scissors!");
 
-app.Run();
+await app.RunAndMigrateAsync(app.Services.GetRequiredService<IGameMigratorRunner>());
