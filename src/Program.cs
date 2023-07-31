@@ -1,3 +1,4 @@
+using Dapper;
 using RockPaperScissors.Configuration;
 using RockPaperScissors.Infrastructure;
 using static RockPaperScissors.ConfigureServicesExtensions;
@@ -9,6 +10,8 @@ builder.Services.Configure(builder.Configuration);
 var app = builder.Build();
 
 app.MapControllers();
+
+DefaultTypeMap.MatchNamesWithUnderscores = true;
 
 app.MapGet("/", () => "Rock Paper Scissors!");
 

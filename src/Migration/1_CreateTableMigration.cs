@@ -45,7 +45,7 @@ $func$";
             .WithColumn("first_player_id").AsInt64()
             .ForeignKey("first_player_id_fk", "player", "id").NotNullable()
             .WithColumn("second_player_id").AsInt64()
-                .ForeignKey("second_player_id_fk", "player", "id")
+                .ForeignKey("second_player_id_fk", "player", "id").Nullable()
             .WithColumn("rounds_count").AsInt32();
 
         Create.Table("round")
@@ -53,8 +53,8 @@ $func$";
             .WithColumn("game_id").AsInt64()
                 .ForeignKey("game_id_fk", "game", "id").NotNullable()
             .WithColumn("number").AsInt32()
-            .WithColumn("first_player_choice").AsString()
-            .WithColumn("second_player_choice").AsString();
+            .WithColumn("first_player_choice").AsInt32().Nullable()
+            .WithColumn("second_player_choice").AsInt32().Nullable();
 
         this.AddConstraint("public", "game", "other_game_id",
             "first_player_id != second_player_id");

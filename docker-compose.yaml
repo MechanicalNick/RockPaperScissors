@@ -8,12 +8,10 @@ services:
       POSTGRES_DB: game_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    restart: always        
+    restart: unless-stopped        
   game_service:
     ports: 
-      - "5080:80"
-    environment:
-     - ConnectionStrings:PostgreGlobal=Server=game_db;Port=5432;Database=game_db;User ID=postgres;Password=postgres
+      - "5080:80" 
     build:
       context: /src
       dockerfile: Dockerfile

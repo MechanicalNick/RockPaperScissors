@@ -1,5 +1,4 @@
 ﻿using FluentMigrator.Runner;
-using FluentMigrator.Runner.Conventions;
 using RockPaperScissors.Migration;
 
 namespace RockPaperScissors.Infrastructure;
