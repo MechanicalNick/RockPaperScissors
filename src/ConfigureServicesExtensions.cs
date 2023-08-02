@@ -12,6 +12,7 @@ public static class ConfigureServicesExtensions
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
         services.AddSingleton<IConnectionFactory, PostgresConnectionFactory>();
         services.AddSingleton<IGameMigratorRunner, GameMigratorRunner>();
         services.AddScoped<IGameRepository, GameRepository>();

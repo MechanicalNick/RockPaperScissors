@@ -13,6 +13,14 @@ app.MapControllers();
 
 DefaultTypeMap.MatchNamesWithUnderscores = true;
 
-app.MapGet("/", () => "Rock Paper Scissors!");
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+        c.RoutePrefix = string.Empty;
+    });
+}
 
 await app.RunAndMigrateAsync(app.Services.GetRequiredService<IGameMigratorRunner>());
