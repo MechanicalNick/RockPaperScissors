@@ -69,7 +69,7 @@ public class GameController : ControllerBase
         return result.Item1 switch
         {
             TurnResult.Ok => Ok(result.Item2.ToString()),
-            TurnResult.WaitOtherPlayer => StatusCode(425, "Wait second turn"),
+            TurnResult.WaitOtherPlayer => Ok("Wait second turn"),
             TurnResult.EndGame => Ok("Game over"),
             TurnResult.WrongId => UnprocessableEntity($"Wrong id {playerId}"),
             TurnResult.GameNotFound => NotFound($"Game {gameId} not found"),
