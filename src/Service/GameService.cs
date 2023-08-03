@@ -1,7 +1,6 @@
 ﻿using RockPaperScissors.Infrastructure;
 using RockPaperScissors.Model.Dto;
 using RockPaperScissors.Model.Entity;
-using RockPaperScissors.Repository;
 using RockPaperScissors.Repository.Interface;
 
 namespace RockPaperScissors.Service;
@@ -46,6 +45,10 @@ public class GameService : IGameService
         var game = await _gameRepository.FindGameAsync(gameId, ct);
         if (game == null)
             return Tuple.Create(TurnResult.GameNotFound, new TurnResponse());
+
+        var player = await _playerRepository.FindPlayerByIdAsync(playerId, ct);
+        if (player == null || player.IsBot)
+            return Tuple.Create(TurnResult.WrongId, new TurnResponse());
         
         var playersTurn = await TurnAsyncImpl(game, playerId, turn, ct);
         if (playersTurn.Item1 == TurnResult.WaitOtherPlayer && game.WithBot)

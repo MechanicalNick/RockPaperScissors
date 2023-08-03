@@ -36,7 +36,6 @@ public class PlayerRepository : IPlayerRepository
         return await connection.QuerySingleAsync<PlayerEntity>(new CommandDefinition(containsQuery, cancellationToken: ct));
     }
 
-
     public async Task<PlayerEntity> SavePlayerAsync(string playerName, CancellationToken ct)
     {
         await using var connection = _connectionFactory.GetConnection();
@@ -49,6 +48,19 @@ public class PlayerRepository : IPlayerRepository
         values (@playerName, false) returning id;";
     
         var playerEntity = await connection.QuerySingleAsync<PlayerEntity>(new CommandDefinition(saveQuery,
+            parameters:parameters, cancellationToken: ct));
+        return playerEntity;
+    }
+
+    public async Task<PlayerEntity?> FindPlayerByIdAsync(int playerId, CancellationToken ct)
+    {
+        await using var connection = _connectionFactory.GetConnection();
+        
+        var containsQuery = @"select * from player where id=@PlayerId limit 1;";
+        var parameters = new DynamicParameters();
+        parameters.Add("PlayerId", playerId);
+        
+        var playerEntity = await connection.QuerySingleOrDefaultAsync<PlayerEntity?>(new CommandDefinition(containsQuery,
             parameters:parameters, cancellationToken: ct));
         return playerEntity;
     }
